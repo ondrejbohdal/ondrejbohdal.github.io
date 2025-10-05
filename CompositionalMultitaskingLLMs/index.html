@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Compositional Multi-tasking</title>
+
+    <meta name="author" content="Ondrej Bohdal">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="icon" href="images/outline_school_black_18dp.png">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <table
+        style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+        <tbody>
+            <tr style="padding:0px">
+                <td style="padding:0px">
+                    <table
+                        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                        <tbody>
+                            <tr style="padding:0px">
+                                <td style="padding:2.5%;width:63%;vertical-align:middle">
+                                    <p style="text-align:center">
+                                        <name>Efficient Compositional Multi-tasking for On-device Large Language Models
+                                        </name>
+                                    </p>
+                                    <p style="text-align:center">
+                                        Ondrej Bohdal, Mete Ozay, Jijoong Moon, Kyeng-Hun Lee, Hyeonmok Ko, Umberto
+                                        Michieli
+                                    </p>
+                                    <p style="text-align:center">
+                                        <i>EMNLP 2025</i>
+
+                                    <p>
+                                        <center>
+                                            <a href="https://arxiv.org/pdf/2507.16083">Paper</a>
+                                            /
+                                            <a
+                                                href="https://github.com/SamsungLabs/CompositionalMultitaskingLLMs">Code</a>
+                                        </center>
+                                    </p>
+                                    <p style="text-align: center;"><img src="images/illustration.png" width="70%"
+                                            class="center"></p>
+                                    <p style="text-align: center;"><i>Figure 1: Compositional multi-tasking involves
+                                            performing multiple tasks simultaneously.</i></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table
+                        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align:justify">
+                        <tbody>
+                            <tr>
+                                <td style="padding:20px;width:100%;vertical-align:middle;justify-content:center">
+                                    <h1>Proposed Problem Setting</h1>
+
+                                    Compositional multi-tasking for on-device large language models (LLMs) is a new
+                                    practical problem setting that includes tasks such as cross-lingual summarization,
+                                    where we provide a translated summary of a longer text.
+
+                                    <p>
+                                    <ul>
+                                        <li><b>Compositional multi-tasking:</b> perform multiple tasks simultaneously,
+                                            such as summarization and translation</li>
+                                        <li><b>Challenge:</b> execute all tasks jointly within a single inference pass
+                                            for optimal efficiency</li>
+                                        <li><b>Existing approaches for on-device LLMs:</b> either inefficient or have
+                                            low performance</li>
+                                        <li><b>Our new benchmark:</b> four compositional tasks, with three translation
+                                            settings and four tone variations</li>
+                                    </ul>
+                                    </p>
+
+                                    <p><img src="images/benchmark.png" width="100%" class="center"></p>
+                                    <p style="text-align: center;"><i>Figure 2: Overview of the four compositional tasks
+                                            in our benchmark.</i></p>
+
+                                    <h1>Our Solution: Learnable Calibration</h1>
+                                    <p>We add a small number of calibration parameters to correct initially merged
+                                        LoRAs. Variation #1 uses a calibration vector of biases, while Variation #2 (++)
+                                        uses two calibration low-rank matrices.</p>
+                                    <p style="text-align: center;"><img src="images/solution.png" width="60%"
+                                            class="center"></p>
+                                    <p style="text-align: center;"><i>Figure 3: Overview of our solution to address the
+                                            proposed problem setting.</i></p>
+                                    <h1>Results</h1>
+                                    <p>Our Learnable Calibration methods achieve comparable performance to inefficient
+                                        baselines
+                                        while being significantly more efficient in terms of inferences and storage.
+                                        Similarly fast baselines, such as various
+                                        merging strategies, typically fail in compositional multi-tasking. </p>
+                                    <p><img src="images/results.png" width="100%" class="center"></p>
+                                    <p style="text-align: center;"><i>Table 1: Main results on our benchmark reported as
+                                            % (↑) and averaged across models and languages or tones.</i></p>
+                                    <h1>Efficiency Evaluation</h1>
+                                    <p>
+                                        Our methods require only 0.08–0.56% of additional
+                                        parameters / storage, depending on the variation. Baselines not reported here,
+                                        such as Main-task LoRA and Linear Merge, are efficient but exhibit significantly
+                                        lower performance.
+                                    </p>
+                                    <p style="text-align: center;"><img src="images/efficiency.png" width="60%"
+                                            class="center"></p>
+                                    <p style="text-align: center;"><i>Table 2: Efficiency of well-performing
+                                            approaches.</i></p>
+                                    <h1>Summary</h1>
+                                    <p>We introduced the practically valuable problem
+                                        of compositional multi-tasking for LLMs in on-device settings, where
+                                        computational and storage
+                                        resources are constrained. To facilitate research in
+                                        this area, we developed a comprehensive benchmark comprising diverse
+                                        compositional
+                                        tasks. Further, we proposed Learnable Calibration as an efficient solution.
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+    </table>
+    <table
+        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+        <tr>
+            <td style="padding:0px">
+                <br>
+                <p style="text-align:center;font-size:small;">
+                    Design and source code from <a style="font-size:small;" href="https://jonbarron.info">Jon
+                        Barron's website</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Feed-Forward Latent Domain Adaptation</title>
+
+    <meta name="author" content="Ondrej Bohdal">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="icon" href="images/outline_school_black_18dp.png">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <table
+        style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+        <tbody>
+            <tr style="padding:0px">
+                <td style="padding:0px">
+                    <table
+                        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                        <tbody>
+                            <tr style="padding:0px">
+                                <td style="padding:2.5%;width:63%;vertical-align:middle">
+                                    <p style="text-align:center">
+                                        <name>Feed-Forward Latent Domain Adaptation</name>
+                                    </p>
+                                    <p style="text-align:center">
+                                        Ondrej Bohdal, Da Li, Shell Xu Hu and Timothy Hospedales
+                                    </p>
+                                    <p style="text-align:center">
+                                        <i>WACV 2024</i>
+
+                                    <p>
+                                        <center>
+                                            <a
+                                                href="https://openaccess.thecvf.com/content/WACV2024/html/Bohdal_Feed-Forward_Latent_Domain_Adaptation_WACV_2024_paper.html">Paper</a>
+                                            /
+                                            <a href="data/cxda_poster.pdf">Poster</a>
+                                            /
+                                            <a href="data/cxda_slides.pdf">Slides</a>
+                                        </center>
+                                    </p>
+                                    <p style="text-align: center;"><img src="images/deployment.png" width="70%"
+                                            class="center"></p>
+                                    <p style="text-align: center;"><i>Figure 1: Illustration of the desired application
+                                            scenario.</i></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table
+                        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align:justify">
+                        <tbody>
+                            <tr>
+                                <td style="padding:20px;width:100%;vertical-align:middle;justify-content:center">
+                                    <h1>Proposed Problem Setting</h1>
+                                    <p>
+                                        Our key motivation is to adapt a model on the user's device to optimize
+                                        performance on local data distribution. There are several challenges and
+                                        desiderata associated with such setup:
+                                    <ul>
+                                        <li><b>Keep data local for privacy:</b> local processing and no cloud</li>
+                                        <li><b>Feed-forward:</b> backpropagation is slow and may not be supported on
+                                            mobile devices</li>
+                                        <li><b>Latent domains:</b> user's local stored data is of mixed relevance to
+                                            each test instance</li>
+                                        <li><b>No labels:</b> no class or domain labels for user's examples</li>
+                                        <li><b>Source-free:</b> access only to the pre-trained model, not the source
+                                            data</li>
+                                    </ul>
+                                    </p>
+                                    <p><img src="images/latent_da.png" width="100%" class="center"></p>
+                                    <p style="text-align: center;"><i>Figure 2: Comparison of standard and latent domain
+                                            adaptation settings.</i></p>
+                                    <h1>Our Solution: CXDA</h1>
+                                    <p>Our key idea is to use a cross-attention mechanism to identify and exploit
+                                        relevant support instances for adapting to the query example. The
+                                        cross-attention mechanism and other parameters of the model are pre-trained by
+                                        solving many adaptation tasks using source data.</p>
+                                    <p><img src="images/solution.png" width="100%" class="center"></p>
+                                    <p style="text-align: center;"><i>Figure 3: Overview of our solution to address the
+                                            proposed problem setting.</i></p>
+                                    <h1>Results</h1>
+                                    <p>We evaluate the approach on various synthetic and real-world benchmarks, and
+                                        compare it with feed-forward baselines, back-propagation baselines and more
+                                        advanced baselines from related areas such as open compound domain adaptation.
+                                        The results highlight the usefulness of our CXDA for the proposed problem
+                                        setting.</p>
+                                    <p><img src="images/results.png" width="100%" class="center"></p>
+                                    <p style="text-align: center;"><i>Table 1: Average and worst-case (worst 10% tasks)
+                                            test performance, with standard error of the mean across 3 random seeds.</i>
+                                    </p>
+                                    <h1>Speed Evaluation</h1>
+                                    <p>Our CXDA gives the best performance and is capable of real-time adaptation with
+                                        similar speed as the other feed-forward baselines. It is significantly faster
+                                        than the back-propagation based approaches.</p>
+                                    <p><img src="images/speed.png" width="100%" class="center"></p>
+                                    <p style="text-align: center;"><i>Figure 4: Analysis of test accuracy vs time per
+                                            task for the various approaches evaluated.</i></p>
+                                    <h1>Summary</h1>
+                                    <p>We have introduced a new highly practical problem setting for
+                                        resource-constrained devices, characterised by unlabelled data, mixture of
+                                        domains and the need for feed-forward adaptation. To address this problem
+                                        setting, we have developed an approach called CXDA that selects relevant
+                                        examples via cross attention and uses them for real-time adaptation.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+    </table>
+    <table
+        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+        <tr>
+            <td style="padding:0px">
+                <br>
+                <p style="text-align:center;font-size:small;">
+                    Design and source code from <a style="font-size:small;" href="https://jonbarron.info">Jon
+                        Barron's website</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
