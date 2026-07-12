@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Data-driven Clustering</title>
+
+    <meta name="author" content="Ondrej Bohdal">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="icon" href="images/outline_school_black_18dp.png">
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <table
+        style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+        <tbody>
+            <tr style="padding:0px">
+                <td style="padding:0px">
+                    <table
+                        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                        <tbody>
+                            <tr style="padding:0px">
+                                <td style="padding:2.5%;width:63%;vertical-align:middle">
+                                    <p style="text-align:center">
+                                        <name>Data-driven Clustering and Merging of Adapters for On-device Large Language Models
+                                        </name>
+                                    </p>
+                                    <p style="text-align:center">
+                                        Ondrej Bohdal, Taha Ceritli, Mete Ozay, Jijoong Moon, Kyeng-Hun Lee, Hyeonmok Ko, Umberto Michieli
+                                    </p>
+                                    <p style="text-align:center">
+                                        <i>ICASSP 2026</i>
+                                    <p>
+                                        <center>
+                                            <a href="https://arxiv.org/pdf/2601.17441">Paper</a>
+                                        </center>
+                                    </p>
+                                    <p style="text-align: center;"><img src="images/overview.png" width="50%"
+                                            class="center"></p>
+                                    <p style="text-align: center;"><i>Figure 1: Overall pipeline. Single-task LoRAs are first clustered and then merged within the clusters.<br> The resulting multi-task LoRAs are deployed to mobile devices under strict storage constraints.</i></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table
+                        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align:justify">
+                        <tbody>
+                            <tr>
+                                <td style="padding:20px;width:100%;vertical-align:middle;justify-content:center">
+                                    <h1>Problem Setting</h1>
+                                    <p>
+                                    On-device large language models commonly employ tasks-pecific adapters (e.g. LoRAs) to deliver strong performance
+                                    on downstream tasks. While storing all available adapters is
+                                    impractical due to memory constraints, mobile devices typically have sufficient capacity to store a limited number of
+                                    these parameters. This raises a critical challenge: how to select representative adapters that generalize well across multiple
+                                    tasks — a problem that remains unexplored in existing literature.
+                                    </p>
+                                    <h1>Our Solution: Data-driven Clustering</h1>
+                                    <p>
+                                    We propose a novel method \(D^2C\) for adapter clustering that
+                                    leverages minimal task-specific examples (e.g. 10 per task)
+                                    and employs an iterative optimization process to refine cluster
+                                    assignments. The adapters within each cluster are merged (using TIES technique), creating multi-task adapters deployable on resource-constrained
+                                    devices. The method is summarized in Algorithm 1 and illustrated in Figure 1.
+                                    </p>
+                                    <p style="text-align: center;"><img src="images/algorithm.png" width="60%"
+                                            class="center"></p>
+                                    <p style="text-align: center;"><i>Algorithm 1: Overview of our proposed \(D^2C\) method.</i></p>
+                                    <h1>Results</h1>
+                                    <p>
+                                    We evaluate \(D^2C\) across 40 distinct text-generation tasks covering 5 problem types (e.g. summarization, smart reply) and 8 languages.
+                                    The target is to store 5 LoRAs on the device instead of 40.
+                                    The experimental results in Table 1 show our method outperforms competing clustering approaches and
+                                    obtains an excellent average performance while using only 12.5% of the storage needed for storing each LoRA separately.
+                                    </p>
+
+                                    <p><img src="images/results.png" width="100%" class="center"></p>
+                                    <p style="text-align: center;"><i>Table 1: Main aggregate results across various models.</i></p>
+                                    <p>
+                                    Additional analyses show:
+                                    <ul>
+                                        <li>Our solution consistently works well for various numbers of clusters, with stronger performance for more clusters.</li>
+                                        <li>The identified clustering is done predominantly by task.</li>
+                                        <li>Our algorithm is not particularly sensitive to the number of examples used.</li>
+                                        <li>Our method is agnostic to the specific merging technique, and it works also with e.g. linear merging instead of TIES.</li>
+                                        <li>With Llama 3.2 3B, the full clustering procedure takes approximately 1.3 hours on a single GPU.</li>
+                                    </ul>
+                                    </p>
+
+                                    <h1>Summary</h1>
+                                    <p>We have introduced a method \(D^2C\) for data-driven clustering and merging of LoRA adapters. The method is simple,
+                                    uses only a few examples for each task, and obtains strong
+                                    performance. Using our method, we can automatically find
+                                    good clusters of single-task LoRAs before merging and so
+                                    bring strong performance to users while using only a limited
+                                    amount of storage. 
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+    </table>
+    <table
+        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+        <tr>
+            <td style="padding:0px">
+                <br>
+                <p style="text-align:center;font-size:small;">
+                    Design and source code from <a style="font-size:small;" href="https://jonbarron.info">Jon
+                        Barron's website</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
