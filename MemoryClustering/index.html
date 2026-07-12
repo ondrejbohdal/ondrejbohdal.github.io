@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Memory Clustering</title>
+
+    <meta name="author" content="Ondrej Bohdal">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="icon" href="images/outline_school_black_18dp.png">
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <table
+        style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+        <tbody>
+            <tr style="padding:0px">
+                <td style="padding:0px">
+                    <table
+                        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                        <tbody>
+                            <tr style="padding:0px">
+                                <td style="padding:2.5%;width:63%;vertical-align:middle">
+                                    <p style="text-align:center">
+                                        <name>Clustering-driven Memory Compression for<br> On-device Large Language Models
+                                        </name>
+                                    </p>
+                                    <p style="text-align:center">
+                                        Ondrej Bohdal, Pramit Saha, Umberto Michieli, Mete Ozay, Taha Ceritli
+                                    </p>
+                                    <p style="text-align:center">
+                                        <i>ICASSP 2026</i>
+                                    <p>
+                                        <center>
+                                            <a href="https://arxiv.org/pdf/2601.17443">Paper</a>
+                                        </center>
+                                    </p>
+                                    <p style="text-align: center;"><img src="images/overview.png" width="100%"
+                                            class="center"></p>
+                                    <p style="text-align: center;"><i>Figure 1: Overview of our clustering-driven memory compression, on an example of personalized news headline generation.</i></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table
+                        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align:justify">
+                        <tbody>
+                            <tr>
+                                <td style="padding:20px;width:100%;vertical-align:middle;justify-content:center">
+                                    <h1>Problem Setting</h1>
+                                    <p>
+                                    Large language models (LLMs) often rely on user-specific
+                                    memories distilled from past interactions to enable personalized generation.
+                                    A common practice is to concatenate these
+                                    memories with the input prompt, but this approach quickly
+                                    exhausts the limited context available in on-device LLMs.
+                                    Compressing memories by averaging can mitigate context
+                                    growth, yet it frequently harms performance due to semantic
+                                    conflicts across heterogeneous memories. We
+                                    focus on significantly improving context efficiency, while maintaining personalization quality.
+                                    </p>
+                                    <h1>Our Solution: Clustering-driven Memory Compression</h1>
+                                    <p>Our clustering-driven memory compression method consists of the following steps (illustrated in Figure 1):</p>
+                                    <ul>
+                                        <li>Given \(N\) supporting documents, we first compress each into a set of memory tokens.</li>
+                                        <li>The memories are grouped into \(K\) clusters based on similarity.</li>
+                                        <li>Within each cluster, the memories are merged (e.g. by averaging).</li>
+                                        <li>The resulting cluster-level memory representations are concatenated.</li>
+                                        <li>The final compressed memories are appended to the new input example, enabling the LLM to generate personalized outputs under a limited context budget.</li>
+                                    </ul>
+                                    <h1>Results</h1>
+                                    <p>
+                                    We evaluate on personalized news headline generation, tweet paraphrasing and movie tagging tasks from the LaMP benchmark, across three on-device models.
+                                    We compare our clustering approach with the mean and concatenation baselines in Table 1. The results indicate that overall
+                                    our solution leads to the best performance on all considered tasks, while requiring significantly fewer memory tokens than concatenation.
+                                    </p>
+                                    <p><img src="images/results.png" width="100%" class="center"></p>
+                                    <p style="text-align: center;"><i>Table 1: Main results across various models and datasets. Personalized news headline generation at the top, followed by personalized tweet paraphrasing and personalized movie tagging.</i></p>
+                                    <p>
+                                    To further analyse the benefits of our solution, we compare the performance of our solution with the mean baseline under the same total number of memory tokens. The results in Table 2 confirm the usefulness of our solution.
+                                    </p>
+                                    <p><img src="images/results_matched.png" width="100%" class="center"></p>
+                                    <p style="text-align: center;"><i>Table 2: Matching total number of memory tokens — results across various models and datasets. Personalized news headline generation at the top, followed by personalized tweet paraphrasing and personalized movie tagging.</i></p>
+                                    <h1>Summary</h1>
+                                    <p>
+                                    We have introduced an efficient method to personalize on-device LLMs via clustering-driven memory compression. The
+                                    method leads to improved performance compared to both concatenation and computing the mean of memories, while using
+                                    fewer memory tokens than concatenation.
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+    </table>
+    <table
+        style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+        <tr>
+            <td style="padding:0px">
+                <br>
+                <p style="text-align:center;font-size:small;">
+                    Design and source code from <a style="font-size:small;" href="https://jonbarron.info">Jon
+                        Barron's website</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
